@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="surface">
+  <div class="section-head">
+    <h2>Listado</h2>
+    <div class="tab-actions">
+      <span>{{ total | number }} registros</span>
+      <a class="api-link" href="/operadores/nuevo">Nuevo</a>
+      <a class="api-link" href="/reportes/operadores">Reporte</a>
+    </div>
+  </div>
+
+  <form class="toolbar" method="get">
+    <input type="search" name="q" value="{{ q }}" placeholder="Codigo o nombre">
+    <button type="submit">Buscar</button>
+    {% if q %}
+      <a class="secondary-action" href="/operadores">Limpiar</a>
+    {% endif %}
+  </form>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Codigo</th>
+          <th>Nombre</th>
+          <th>Estado</th>
+          <th>Ingreso</th>
+          <th class="num">Tinta</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in rows %}
+          <tr>
+            <td>{{ item.codigo }}</td>
+            <td>{{ item.descripcion }}</td>
+            <td>
+              {% if item.activo %}
+                <span class="badge ok">Activo</span>
+              {% else %}
+                <span class="badge muted">Inactivo</span>
+              {% endif %}
+            </td>
+            <td>{{ item.ingreso | date }}</td>
+            <td class="num">{{ item.tinta | number }}</td>
+            <td class="actions">
+              <a href="/operadores/{{ item.codigo }}/editar">Editar</a>
+              <form method="post" action="/operadores/{{ item.codigo }}/eliminar"><button type="submit" class="danger">Desactivar</button></form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% include "partials/pagination.html" %}
+</section>
+{% endblock %}

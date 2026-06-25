@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="surface">
+  <div class="section-head">
+    <h2>Listado</h2>
+    <a class="api-link" href="/usuarios/nuevo">Nuevo</a>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Usuario</th><th>Nombre</th><th>Rol</th><th>Seg.</th><th>Estado</th><th></th></tr></thead>
+      <tbody>
+      {% for item in rows %}
+        <tr>
+          <td>{{ item.codigo }}</td>
+          <td>{{ item.nombre }}</td>
+          <td>{{ item.rol }}</td>
+          <td>{{ item.nivel_seguridad }}</td>
+          <td>{% if item.activo %}<span class="badge ok">Activo</span>{% else %}<span class="badge muted">Inactivo</span>{% endif %}</td>
+          <td class="actions"><a href="/usuarios/{{ item.id }}/editar">Editar</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include "partials/pagination.html" %}
+</section>
+{% endblock %}

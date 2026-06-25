@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} | Rendicion</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">R</span>
+        <div>
+          <strong>Rendicion</strong>
+          <span>Cuadratura</span>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="/dashboard" class="{% if request.url.path == '/dashboard' %}active{% endif %}">Panel</a>
+        <a href="/cuadraturas" class="{% if request.url.path == '/cuadraturas' %}active{% endif %}">Cuadraturas</a>
+        <a href="/depositos" class="{% if request.url.path == '/depositos' %}active{% endif %}">Depositos</a>
+        <a href="/operadores" class="{% if request.url.path == '/operadores' %}active{% endif %}">Operadores</a>
+        <a href="/reportes/cuadraturas" class="{% if request.url.path.startswith('/reportes') %}active{% endif %}">Reportes</a>
+        {% if current_user and current_user.rol == 'admin' %}
+          <a href="/usuarios" class="{% if request.url.path == '/usuarios' %}active{% endif %}">Usuarios</a>
+          <a href="/configuracion" class="{% if request.url.path == '/configuracion' %}active{% endif %}">Config.</a>
+        {% endif %}
+      </nav>
+      <div class="sidebar-foot">
+        {% if current_user %}
+          <span>{{ current_user.codigo }} | {{ current_user.rol }}</span>
+          <a href="/logout">Salir</a>
+        {% else %}
+          <span>SQLite local</span>
+        {% endif %}
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sistema de cuadratura y rendicion</p>
+          <h1>{{ title }}</h1>
+        </div>
+        <div class="top-actions">
+          <a class="api-link" href="/docs">API</a>
+          {% if current_user %}<a class="api-link" href="/logout">Salir</a>{% endif %}
+        </div>
+      </header>
+
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

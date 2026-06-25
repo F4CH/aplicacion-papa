@@ -1,0 +1,15 @@
+<div class="pagination">
+  {% if page > 1 %}
+    <a href="?page={{ page - 1 }}{% if q %}&q={{ q }}{% endif %}">Anterior</a>
+  {% else %}
+    <span>Anterior</span>
+  {% endif %}
+
+  <strong>Pagina {{ page }} de {{ total_pages }}</strong>
+
+  {% if page < total_pages %}
+    <a href="?page={{ page + 1 }}{% if q %}&q={{ q }}{% endif %}">Siguiente</a>
+  {% else %}
+    <span>Siguiente</span>
+  {% endif %}
+</div>

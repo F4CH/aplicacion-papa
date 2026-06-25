@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="surface form-surface">
+  <form method="post" action="/usuarios/guardar" class="form-grid">
+    <input type="hidden" name="id" value="{{ item.id if item else '' }}">
+    <label>Codigo<input name="codigo" required value="{{ item.codigo if item else '' }}"></label>
+    <label>Nombre<input name="nombre" required value="{{ item.nombre if item else '' }}"></label>
+    <label>Rol
+      <select name="rol">
+        {% for rol in ['consulta', 'operador', 'supervisor', 'admin'] %}
+          <option value="{{ rol }}" {% if item and item.rol == rol %}selected{% endif %}>{{ rol }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Seguridad<input name="nivel_seguridad" type="number" min="1" max="9" value="{{ item.nivel_seguridad if item else 3 }}"></label>
+    <label>Menu<input name="menu" value="{{ item.menu if item else '' }}"></label>
+    <label>Password<input name="password" type="password" placeholder="{% if item %}Dejar vacio para mantener{% else %}Minimo 8 caracteres{% endif %}"></label>
+    <label class="check"><input type="checkbox" name="activo" {% if not item or item.activo %}checked{% endif %}> Activo</label>
+    <div class="form-actions">
+      <button type="submit">Guardar</button>
+      <a class="secondary-action" href="/usuarios">Cancelar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

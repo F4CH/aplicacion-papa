@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="stats-grid">
+  {% for stat in stats %}
+    <article class="stat">
+      <span>{{ stat.label }}</span>
+      {% if stat.kind == "money" %}
+        <strong>{{ stat.value | money }}</strong>
+      {% else %}
+        <strong>{{ stat.value | number }}</strong>
+      {% endif %}
+    </article>
+  {% endfor %}
+</section>
+
+<section class="summary-strip">
+  <div>
+    <span>Ultima cuadratura</span>
+    <strong>{{ ultima_cuadratura | date }}</strong>
+  </div>
+  <div>
+    <span>Ultimo deposito</span>
+    <strong>{{ ultimo_deposito | date }}</strong>
+  </div>
+</section>
+
+<div class="two-column">
+  <section class="surface">
+    <div class="section-head">
+      <h2>Cuadraturas recientes</h2>
+      <a href="/cuadraturas">Ver todas</a>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Numero</th>
+            <th>Fecha</th>
+            <th>Operador</th>
+            <th class="num">Ventas</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in recent_cuadraturas %}
+            <tr>
+              <td>{{ item.numero }}</td>
+              <td>{{ item.fecha | date }}</td>
+              <td>{{ item.operador_codigo }}</td>
+              <td class="num">{{ item.ventas_v | money }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="surface">
+    <div class="section-head">
+      <h2>Depositos recientes</h2>
+      <a href="/depositos">Ver todos</a>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Numero</th>
+            <th>Fecha</th>
+            <th>Operador</th>
+            <th class="num">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in recent_depositos %}
+            <tr>
+              <td>{{ item.numero }}</td>
+              <td>{{ item.fecha | date }}</td>
+              <td>{{ item.operador_codigo }}</td>
+              <td class="num">{{ item.total_v | money }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+{% endblock %}

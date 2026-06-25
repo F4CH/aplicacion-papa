@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="surface form-surface">
+  <form method="post" action="/operadores/guardar" class="form-grid">
+    <input type="hidden" name="original_codigo" value="{{ item.codigo if item else '' }}">
+    <label>Codigo<input name="codigo" maxlength="5" required value="{{ item.codigo if item else '' }}"></label>
+    <label>Nombre<input name="descripcion" required value="{{ item.descripcion if item else '' }}"></label>
+    <label>Ingreso<input name="ingreso" type="date" value="{{ item.ingreso.isoformat() if item and item.ingreso else '' }}"></label>
+    <label>Tinta<input name="tinta" type="number" value="{{ item.tinta if item else 0 }}"></label>
+    <label class="check"><input type="checkbox" name="activo" {% if not item or item.activo %}checked{% endif %}> Activo</label>
+    <div class="form-actions">
+      <button type="submit">Guardar</button>
+      <a class="secondary-action" href="/operadores">Cancelar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

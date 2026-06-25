@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="surface">
+  <div class="section-head">
+    <h2>Listado</h2>
+    <div class="tab-actions">
+      <span>{{ total | number }} registros</span>
+      <a class="api-link" href="/cuadraturas/nuevo">Nuevo</a>
+      <a class="api-link" href="/reportes/cuadraturas">Reporte</a>
+    </div>
+  </div>
+
+  <form class="toolbar" method="get">
+    <input type="search" name="q" value="{{ q }}" placeholder="Numero, operador o nombre">
+    <button type="submit">Buscar</button>
+    {% if q %}
+      <a class="secondary-action" href="/cuadraturas">Limpiar</a>
+    {% endif %}
+  </form>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Numero</th>
+          <th>Fecha</th>
+          <th>Turno</th>
+          <th>Operador</th>
+          <th class="num">Combustible</th>
+          <th class="num">Otros</th>
+          <th class="num">Deposito</th>
+          <th class="num">Ventas</th>
+          <th class="num">Transbank</th>
+          <th class="num">Transferencia</th>
+          <th class="num">Diferencia</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in rows %}
+          <tr>
+            <td>{{ item.numero }}</td>
+            <td>{{ item.fecha | date }}</td>
+            <td>{{ item.turno }}</td>
+            <td title="{{ item.operador.descripcion if item.operador else '' }}">{{ item.operador_codigo }}</td>
+            <td class="num">{{ item.combust_v | money }}</td>
+            <td class="num">{{ item.otros_v | money }}</td>
+            <td class="num">{{ item.deposito_v | money }}</td>
+            <td class="num strong">{{ item.ventas_v | money }}</td>
+            <td class="num">{{ item.transbnk_v | money }}</td>
+            <td class="num">{{ item.transfer_v | money }}</td>
+            <td class="num strong">{{ diferencia_cuadratura(item) | money }}</td>
+            <td class="actions">
+              <a href="/cuadraturas/{{ item.id }}/editar">Editar</a>
+              <form method="post" action="/cuadraturas/{{ item.id }}/eliminar"><button type="submit" class="danger">Eliminar</button></form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% include "partials/pagination.html" %}
+</section>
+{% endblock %}
