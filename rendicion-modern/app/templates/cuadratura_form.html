@@ -3,25 +3,41 @@
 <section class="surface form-surface">
   <form method="post" action="/cuadraturas/guardar" class="form-grid wide">
     <input type="hidden" name="id" value="{{ item.id if item.id else '' }}">
-    <label>Numero<input name="numero" type="number" required value="{{ item.numero }}"></label>
-    <label>Fecha<input name="fecha" type="date" required value="{{ item.fecha.isoformat() }}"></label>
-    <label>Turno<input name="turno" type="number" min="1" max="99" required value="{{ item.turno }}"></label>
-    <label>Operador
-      <select name="operador_codigo" required>
-        <option value="">Seleccionar</option>
-        {% for op in operadores %}
-          <option value="{{ op.codigo }}" {% if item.operador_codigo == op.codigo %}selected{% endif %}>{{ op.codigo }} - {{ op.descripcion }}</option>
-        {% endfor %}
-      </select>
-    </label>
-    <label>Combustible<input name="combust_v" type="number" value="{{ item.combust_v }}"></label>
-    <label>Otros<input name="otros_v" type="number" value="{{ item.otros_v }}"></label>
-    <label>Deposito<input name="deposito_v" type="number" value="{{ item.deposito_v }}"></label>
-    <label>Ventas turno<input name="ventas_v" type="number" value="{{ item.ventas_v }}"></label>
-    <label>TransBank<input name="transbnk_v" type="number" value="{{ item.transbnk_v }}"></label>
-    <label>Transferencia<input name="transfer_v" type="number" value="{{ item.transfer_v }}"></label>
-    <label>Mi piloto/copiloto<input name="piloto_v" type="number" value="{{ item.piloto_v }}"></label>
-    <label class="check"><input type="checkbox" name="recuperar_depositos"> Recuperar depositos del mismo dia, turno y operador</label>
+    <div class="form-section full">
+      <div class="section-title">
+        <span>Datos del turno</span>
+        <small>Identificacion de cuadratura</small>
+      </div>
+      <div class="form-grid wide">
+        <label>Numero<input name="numero" type="number" required value="{{ item.numero }}"></label>
+        <label>Fecha<input name="fecha" type="date" required value="{{ item.fecha.isoformat() }}"></label>
+        <label>Turno<input name="turno" type="number" min="1" max="99" required value="{{ item.turno }}"></label>
+        <label>Operador
+          <select name="operador_codigo" required>
+            <option value="">Seleccionar</option>
+            {% for op in operadores %}
+              <option value="{{ op.codigo }}" {% if item.operador_codigo == op.codigo %}selected{% endif %}>{{ op.codigo }} - {{ op.descripcion }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      </div>
+    </div>
+    <div class="form-section full">
+      <div class="section-title">
+        <span>Montos rendidos</span>
+        <small>Valores usados para calcular diferencia</small>
+      </div>
+      <div class="form-grid wide">
+        <label>Combustible<input name="combust_v" type="number" value="{{ item.combust_v }}"></label>
+        <label>Otros<input name="otros_v" type="number" value="{{ item.otros_v }}"></label>
+        <label>Deposito<input name="deposito_v" type="number" value="{{ item.deposito_v }}"></label>
+        <label>Ventas turno<input name="ventas_v" type="number" value="{{ item.ventas_v }}"></label>
+        <label>TransBank<input name="transbnk_v" type="number" value="{{ item.transbnk_v }}"></label>
+        <label>Transferencia<input name="transfer_v" type="number" value="{{ item.transfer_v }}"></label>
+        <label>Mi piloto/copiloto<input name="piloto_v" type="number" value="{{ item.piloto_v }}"></label>
+        <label class="check"><input type="checkbox" name="recuperar_depositos"> Recuperar depositos del mismo dia, turno y operador</label>
+      </div>
+    </div>
     <div class="computed">Diferencia actual: <strong>{{ diferencia_cuadratura(item) | money }}</strong></div>
     <div class="form-actions">
       <button type="submit">Guardar</button>

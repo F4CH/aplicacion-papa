@@ -16,8 +16,10 @@
           <td>{{ item.rol }}</td>
           <td>{{ item.nivel_seguridad }}</td>
           <td>{% if item.activo %}<span class="badge ok">Activo</span>{% else %}<span class="badge muted">Inactivo</span>{% endif %}</td>
-          <td class="actions"><a href="/usuarios/{{ item.id }}/editar">Editar</a></td>
+          <td class="actions row-actions"><a href="/usuarios/{{ item.id }}/editar">Editar</a></td>
         </tr>
+      {% else %}
+        <tr><td colspan="6" class="empty-row">No hay usuarios para mostrar.</td></tr>
       {% endfor %}
       </tbody>
     </table>

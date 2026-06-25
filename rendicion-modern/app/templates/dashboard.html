@@ -4,11 +4,11 @@
 <section class="stats-grid">
   {% for stat in stats %}
     <article class="stat">
-      <span>{{ stat.label }}</span>
+      <span class="stat-label">{{ stat.label }}</span>
       {% if stat.kind == "money" %}
-        <strong>{{ stat.value | money }}</strong>
+        <strong class="stat-value">{{ stat.value | money }}</strong>
       {% else %}
-        <strong>{{ stat.value | number }}</strong>
+        <strong class="stat-value">{{ stat.value | number }}</strong>
       {% endif %}
     </article>
   {% endfor %}
@@ -49,6 +49,8 @@
               <td>{{ item.operador_codigo }}</td>
               <td class="num">{{ item.ventas_v | money }}</td>
             </tr>
+          {% else %}
+            <tr><td colspan="4" class="empty-row">No hay cuadraturas recientes.</td></tr>
           {% endfor %}
         </tbody>
       </table>
@@ -78,6 +80,8 @@
               <td>{{ item.operador_codigo }}</td>
               <td class="num">{{ item.total_v | money }}</td>
             </tr>
+          {% else %}
+            <tr><td colspan="4" class="empty-row">No hay depositos recientes.</td></tr>
           {% endfor %}
         </tbody>
       </table>

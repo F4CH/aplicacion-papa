@@ -11,11 +11,12 @@
     <aside class="sidebar">
       <div class="brand">
         <span class="brand-mark">R</span>
-        <div>
+        <div class="app-title">
           <strong>Rendicion</strong>
           <span>Cuadratura</span>
         </div>
       </div>
+      <p class="nav-section">Operacion</p>
       <nav class="nav">
         <a href="/dashboard" class="{% if request.url.path == '/dashboard' %}active{% endif %}">Panel</a>
         <a href="/cuadraturas" class="{% if request.url.path == '/cuadraturas' %}active{% endif %}">Cuadraturas</a>
@@ -29,8 +30,14 @@
       </nav>
       <div class="sidebar-foot">
         {% if current_user %}
-          <span>{{ current_user.codigo }} | {{ current_user.rol }}</span>
-          <a href="/logout">Salir</a>
+          <div class="sidebar-user">
+            <span class="user-avatar">{{ current_user.codigo[:1] | upper }}</span>
+            <div class="user-meta">
+              <strong>{{ current_user.codigo }}</strong>
+              <span>{{ current_user.rol }}</span>
+            </div>
+          </div>
+          <a class="logout-link" href="/logout">Cerrar sesion</a>
         {% else %}
           <span>SQLite local</span>
         {% endif %}
@@ -39,7 +46,7 @@
 
     <main class="content">
       <header class="topbar">
-        <div>
+        <div class="topbar-main">
           <p class="eyebrow">Sistema de cuadratura y rendicion</p>
           <h1>{{ title }}</h1>
         </div>

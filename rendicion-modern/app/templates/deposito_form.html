@@ -6,24 +6,48 @@
   {% endif %}
   <form method="post" action="/depositos/guardar" class="form-grid wide">
     <input type="hidden" name="id" value="{{ item.id if item.id else '' }}">
-    <label>Numero<input name="numero" type="number" required value="{{ item.numero }}"></label>
-    <label>Fecha<input name="fecha" type="date" required value="{{ item.fecha.isoformat() }}"></label>
-    <label>Turno<input name="turno" type="number" min="1" max="99" required value="{{ item.turno }}"></label>
-    <label>Operador
-      <select name="operador_codigo" required>
-        <option value="">Seleccionar</option>
-        {% for op in operadores %}
-          <option value="{{ op.codigo }}" {% if item.operador_codigo == op.codigo %}selected{% endif %}>{{ op.codigo }} - {{ op.descripcion }}</option>
+    <div class="form-section full">
+      <div class="section-title">
+        <span>Datos del deposito</span>
+        <small>Turno, fecha y operador asociado</small>
+      </div>
+      <div class="form-grid wide">
+        <label>Numero<input name="numero" type="number" required value="{{ item.numero }}"></label>
+        <label>Fecha<input name="fecha" type="date" required value="{{ item.fecha.isoformat() }}"></label>
+        <label>Turno<input name="turno" type="number" min="1" max="99" required value="{{ item.turno }}"></label>
+        <label>Operador
+          <select name="operador_codigo" required>
+            <option value="">Seleccionar</option>
+            {% for op in operadores %}
+              <option value="{{ op.codigo }}" {% if item.operador_codigo == op.codigo %}selected{% endif %}>{{ op.codigo }} - {{ op.descripcion }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      </div>
+    </div>
+    <div class="form-section full">
+      <div class="section-title">
+        <span>Denominaciones</span>
+        <small>Billetes y monedas detectadas o ingresadas</small>
+      </div>
+      <div class="form-grid wide compact">
+        {% for field,label in [('por_20k','20.000'),('por_10k','10.000'),('por_05k','5.000'),('por_02k','2.000'),('por_01k','1.000'),('por_05c','500'),('por_01c','100'),('por_50u','50'),('por_10u','10')] %}
+          <label>{{ label }}<input name="{{ field }}" type="number" min="0" value="{{ item|attr(field) }}"></label>
         {% endfor %}
-      </select>
-    </label>
-    {% for field,label in [('por_20k','20.000'),('por_10k','10.000'),('por_05k','5.000'),('por_02k','2.000'),('por_01k','1.000'),('por_05c','500'),('por_01c','100'),('por_50u','50'),('por_10u','10')] %}
-      <label>{{ label }}<input name="{{ field }}" type="number" min="0" value="{{ item|attr(field) }}"></label>
-    {% endfor %}
-    <label>Aceite cant.<input name="aceite_c" type="number" min="0" value="{{ item.aceite_c }}"></label>
-    <label>Aceite valor<input name="aceite_v" type="number" min="0" value="{{ item.aceite_v }}"></label>
-    <label>Promo cant.<input name="promo_c" type="number" min="0" value="{{ item.promo_c }}"></label>
-    <label>Promo valor<input name="promo_v" type="number" min="0" value="{{ item.promo_v }}"></label>
+      </div>
+    </div>
+    <div class="form-section full">
+      <div class="section-title">
+        <span>Adicionales</span>
+        <small>Aceites, promociones y otros conceptos</small>
+      </div>
+      <div class="form-grid wide">
+        <label>Aceite cant.<input name="aceite_c" type="number" min="0" value="{{ item.aceite_c }}"></label>
+        <label>Aceite valor<input name="aceite_v" type="number" min="0" value="{{ item.aceite_v }}"></label>
+        <label>Promo cant.<input name="promo_c" type="number" min="0" value="{{ item.promo_c }}"></label>
+        <label>Promo valor<input name="promo_v" type="number" min="0" value="{{ item.promo_v }}"></label>
+      </div>
+    </div>
     <div class="form-actions">
       <button type="submit">Guardar</button>
       <a class="secondary-action" href="/depositos/importar">Leer otra boleta</a>

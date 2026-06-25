@@ -25,15 +25,15 @@
   <div class="table-wrap">
     {% if tipo == 'cuadraturas' %}
       <table><thead><tr><th>Numero</th><th>Fecha</th><th>Turno</th><th>Operador</th><th class="num">Comb.</th><th class="num">Ventas</th><th class="num">TransBank</th><th class="num">Transf.</th><th class="num">Piloto</th><th class="num">Diferencia</th></tr></thead><tbody>
-      {% for item in rows %}<tr><td>{{ item.numero }}</td><td>{{ item.fecha|date }}</td><td>{{ item.turno }}</td><td>{{ item.operador_codigo }}</td><td class="num">{{ item.combust_v|money }}</td><td class="num">{{ item.ventas_v|money }}</td><td class="num">{{ item.transbnk_v|money }}</td><td class="num">{{ item.transfer_v|money }}</td><td class="num">{{ item.piloto_v|money }}</td><td class="num strong">{{ diferencia_cuadratura(item)|money }}</td></tr>{% endfor %}
+      {% for item in rows %}<tr><td>{{ item.numero }}</td><td>{{ item.fecha|date }}</td><td>{{ item.turno }}</td><td>{{ item.operador_codigo }}</td><td class="num">{{ item.combust_v|money }}</td><td class="num">{{ item.ventas_v|money }}</td><td class="num">{{ item.transbnk_v|money }}</td><td class="num">{{ item.transfer_v|money }}</td><td class="num">{{ item.piloto_v|money }}</td><td class="num strong">{{ diferencia_cuadratura(item)|money }}</td></tr>{% else %}<tr><td colspan="10" class="empty-row">No hay datos para el filtro seleccionado.</td></tr>{% endfor %}
       </tbody></table>
     {% elif tipo == 'depositos' %}
       <table><thead><tr><th>Numero</th><th>Fecha</th><th>Turno</th><th>Operador</th><th class="num">Comb.</th><th class="num">Otros</th><th class="num">Total</th></tr></thead><tbody>
-      {% for item in rows %}<tr><td>{{ item.numero }}</td><td>{{ item.fecha|date }}</td><td>{{ item.turno }}</td><td>{{ item.operador_codigo }}</td><td class="num">{{ item.val_comb|money }}</td><td class="num">{{ item.val_otro|money }}</td><td class="num strong">{{ item.total_v|money }}</td></tr>{% endfor %}
+      {% for item in rows %}<tr><td>{{ item.numero }}</td><td>{{ item.fecha|date }}</td><td>{{ item.turno }}</td><td>{{ item.operador_codigo }}</td><td class="num">{{ item.val_comb|money }}</td><td class="num">{{ item.val_otro|money }}</td><td class="num strong">{{ item.total_v|money }}</td></tr>{% else %}<tr><td colspan="7" class="empty-row">No hay datos para el filtro seleccionado.</td></tr>{% endfor %}
       </tbody></table>
     {% else %}
       <table><thead><tr><th>Codigo</th><th>Nombre</th><th>Estado</th><th>Ingreso</th></tr></thead><tbody>
-      {% for item in rows %}<tr><td>{{ item.codigo }}</td><td>{{ item.descripcion }}</td><td>{{ 'Activo' if item.activo else 'Inactivo' }}</td><td>{{ item.ingreso|date }}</td></tr>{% endfor %}
+      {% for item in rows %}<tr><td>{{ item.codigo }}</td><td>{{ item.descripcion }}</td><td>{{ 'Activo' if item.activo else 'Inactivo' }}</td><td>{{ item.ingreso|date }}</td></tr>{% else %}<tr><td colspan="4" class="empty-row">No hay datos para el filtro seleccionado.</td></tr>{% endfor %}
       </tbody></table>
     {% endif %}
   </div>

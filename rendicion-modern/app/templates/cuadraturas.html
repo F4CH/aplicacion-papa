@@ -51,11 +51,13 @@
             <td class="num">{{ item.transbnk_v | money }}</td>
             <td class="num">{{ item.transfer_v | money }}</td>
             <td class="num strong">{{ diferencia_cuadratura(item) | money }}</td>
-            <td class="actions">
+            <td class="actions row-actions">
               <a href="/cuadraturas/{{ item.id }}/editar">Editar</a>
               <form method="post" action="/cuadraturas/{{ item.id }}/eliminar"><button type="submit" class="danger">Eliminar</button></form>
             </td>
           </tr>
+        {% else %}
+          <tr><td colspan="12" class="empty-row">No hay cuadraturas para mostrar.</td></tr>
         {% endfor %}
       </tbody>
     </table>

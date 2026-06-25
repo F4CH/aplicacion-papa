@@ -45,11 +45,13 @@
             </td>
             <td>{{ item.ingreso | date }}</td>
             <td class="num">{{ item.tinta | number }}</td>
-            <td class="actions">
+            <td class="actions row-actions">
               <a href="/operadores/{{ item.codigo }}/editar">Editar</a>
               <form method="post" action="/operadores/{{ item.codigo }}/eliminar"><button type="submit" class="danger">Desactivar</button></form>
             </td>
           </tr>
+        {% else %}
+          <tr><td colspan="6" class="empty-row">No hay operadores para mostrar.</td></tr>
         {% endfor %}
       </tbody>
     </table>

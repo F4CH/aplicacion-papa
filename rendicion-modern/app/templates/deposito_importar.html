@@ -2,12 +2,18 @@
 {% block content %}
 <section class="surface form-surface">
   <form method="post" action="/depositos/importar" enctype="multipart/form-data" class="form-grid">
-    <label class="full">Imagen de boleta o comprobante
-      <input type="file" name="imagen" accept="image/*" required>
-    </label>
-    <div class="computed full">
-      La lectura OCR prellena el formulario de deposito, pero no guarda nada automaticamente.
-      Revisa fecha, turno, operador, denominaciones y valores antes de confirmar.
+    <div class="form-section full">
+      <div class="section-title">
+        <span>Lectura de boleta</span>
+        <small>OCR para prellenar el deposito</small>
+      </div>
+      <label class="file-drop full">Imagen de boleta o comprobante
+        <input type="file" name="imagen" accept="image/*" required>
+      </label>
+      <div class="computed full">
+        La lectura OCR prellena el formulario de deposito, pero no guarda nada automaticamente.
+        Revisa fecha, turno, operador, denominaciones y valores antes de confirmar.
+      </div>
     </div>
     <div class="form-actions">
       <button type="submit">Leer imagen</button>

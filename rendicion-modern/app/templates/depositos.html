@@ -54,11 +54,13 @@
             <td class="num">{{ item.val_comb | money }}</td>
             <td class="num">{{ item.val_otro | money }}</td>
             <td class="num strong">{{ item.total_v | money }}</td>
-            <td class="actions">
+            <td class="actions row-actions">
               <a href="/depositos/{{ item.id }}/editar">Editar</a>
               <form method="post" action="/depositos/{{ item.id }}/eliminar"><button type="submit" class="danger">Eliminar</button></form>
             </td>
           </tr>
+        {% else %}
+          <tr><td colspan="13" class="empty-row">No hay depositos para mostrar.</td></tr>
         {% endfor %}
       </tbody>
     </table>

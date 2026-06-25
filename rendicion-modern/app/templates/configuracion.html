@@ -2,11 +2,19 @@
 {% block content %}
 <section class="surface form-surface">
   <form method="post" action="/configuracion" class="form-grid">
-    <label>Empresa<input name="empresa" value="{{ item.empresa }}"></label>
-    <label>RUT<input name="rut" value="{{ item.rut }}"></label>
-    <label>Local<input name="local" value="{{ item.local }}"></label>
-    <label>E-mail<input name="email" type="email" value="{{ item.email }}"></label>
-    <label class="full">Membrete<textarea name="membrete" rows="5">{{ item.membrete }}</textarea></label>
+    <div class="form-section full">
+      <div class="section-title">
+        <span>Datos de empresa</span>
+        <small>Informacion usada en reportes y encabezados</small>
+      </div>
+      <div class="form-grid">
+        <label>Empresa<input name="empresa" value="{{ item.empresa }}"></label>
+        <label>RUT<input name="rut" value="{{ item.rut }}"></label>
+        <label>Local<input name="local" value="{{ item.local }}"></label>
+        <label>E-mail<input name="email" type="email" value="{{ item.email }}"></label>
+        <label class="full">Membrete<textarea name="membrete" rows="5">{{ item.membrete }}</textarea></label>
+      </div>
+    </div>
     <div class="form-actions">
       <button type="submit">Guardar</button>
     </div>
